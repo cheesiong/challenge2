@@ -13,7 +13,7 @@ export class HomePage {
   private commandCount: number = 1;
   private boardSize: number;
 
-  private output: string = "";
+  public output: string = "";
 
   constructor(private formBuilder: FormBuilder, private commandService: CommandService, private boardService: BoardService){
     this.myForm = formBuilder.group({
