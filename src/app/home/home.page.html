@@ -1,20 +1,49 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Toy Robot Simulator Challenge</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content padding>
+  <ion-list lines="none">
+    <form [formGroup]="myForm">
+      <ion-item *ngFor="let control of myForm.controls | keyvalue">
+        <ion-input
+          required
+          type="text"
+          [formControlName]="control.key"
+          placeHolder=" enter command here ..."
+        ></ion-input>
+        <ion-icon (click)="removeCommand(control)" name="close-circle"></ion-icon>
+      </ion-item>
+    </form>
+  </ion-list>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid>
+    <ion-row>
+        <ion-col>
+          <ion-button style="text-transform:none" expand="full"  color="light" (click)="addCommand()">
+            Add Command
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button style="text-transform:none" expand="full"  color="light" (click)="processCommand()">
+            Process Command
+          </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+          <ion-button style="text-transform:none" expand="full"  color="danger" (click)="reset()">
+            Reset
+          </ion-button>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item>
+    <ion-label>Output: {{output}}</ion-label>
+  </ion-item>
+  
 </ion-content>
+
+
