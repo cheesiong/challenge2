@@ -35,14 +35,27 @@ export class RobotService {
 
   place(coords) {
     
-    this.currX = coords.get('x');
-    this.currY = coords.get('y');
-    this.currFacing = coords.get('facing');
+    let x = coords.get('x');
+    let y = coords.get('y');
+    let facing = coords.get('facing');
 
+    console.log("x=[" + x + "]");
+    console.log("y=[" + y + "]");
+    console.log("facing=[" + facing + "]");
+
+    // check if coordinates are within the board and facing direction is correct
+    if (this.validRange(x) && this.validRange(y) && this.directionMap.get(facing)) {
+      this.currX = x;
+      this.currY = y;
+      this.currFacing = facing;
+    }
+    
   }
 
   move() {
 
+    console.log("Before move(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
+    
     switch (this.currFacing) {
       case "NORTH":
         if (this.currY < this.uppperLimit)
@@ -63,28 +76,50 @@ export class RobotService {
       default:
         console.log("Invalid Position");
     }
+
+    console.log("After move(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
 
   left() {
 
+    console.log("Before left(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
+  
     let facing = this.currFacing;
     this.currFacing = this.directionMap.get(facing).LEFT;
+
+    console.log("After left(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
 
   right() {
 
+    console.log("Before right(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
+
     let facing = this.currFacing;
     this.currFacing = this.directionMap.get(facing).RIGHT;
 
+    console.log("After right(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
 
   report() {
 
-    let output = this.currX + ","  + this.currY + "," + this.currFacing;
-    console.log("output: " + output);
-    return output;
+    if ( this.currX && this.currY && this.currFacing) {
+      let output = this.currX + ","  + this.currY + "," + this.currFacing;
+      console.log("output: " + output);
+
+      return output;
+    }
+    return;
 
   }
 
+  validRange(x:number){
+
+    console.log("validRange, x=["+ x + "]");
+
+    if (x >= this.lowerLimit && x <= this.uppperLimit)
+      return true;
+
+    return false;
+  }
 }
 

@@ -11,7 +11,6 @@ import { BoardService } from '../services/board.service';
 export class HomePage {
   public myForm: FormGroup;
   private commandCount: number = 1;
-  private boardSize: number;
 
   public output: string = "";
 
@@ -20,7 +19,6 @@ export class HomePage {
       '1': ['', Validators.required]
     });
 
-    this.boardSize = this.boardService.getUpperLimit();
   }
 
   addCommand(){
