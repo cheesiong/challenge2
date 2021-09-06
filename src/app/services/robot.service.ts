@@ -68,13 +68,13 @@ export class RobotService {
   left() {
 
     let facing = this.currFacing;
-    this.currFacing = this.directionMap.get(facing).left;
+    this.currFacing = this.directionMap.get(facing).LEFT;
   }
 
   right() {
 
     let facing = this.currFacing;
-    this.currFacing = this.directionMap.get(facing).right;
+    this.currFacing = this.directionMap.get(facing).RIGHT;
 
   }
 

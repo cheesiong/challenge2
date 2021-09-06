@@ -7,30 +7,39 @@ import { RobotService } from './robot.service';
 })
 export class CommandService {
   
-  private validCommand = ['PLACE', 'MOVE', 'LEFT', 'RIGHT', 'REPORT'];
-
-  private robot: RobotService;
-
   private output: string = "";
 
   constructor(private robotService: RobotService) { }
 
   processCommand(commandList) {
 
+    Object.keys(commandList.controls).forEach(key => {
+
+      let line = commandList.controls[key].value;
+      
+      this.process(line);
+
+    });
+    return this.output;
+  }
+
+  process(line) {
+
     let cmd = null;
     let coords = null;
 
-    Object.keys(commandList.controls).forEach(key => {
+    if (line) {
+      line = line.trim().toUpperCase();     // converts string to uppercase
 
-      let commandLine = commandList.controls[key].value;
+      let tokens = line.split(" ");         // extracts the command word
+      cmd = tokens[0];
 
-      if (commandLine) {
-        [cmd, coords] = this.parseLine(commandLine);
+      console.log("[CommandService->process()] - cmd=[" + cmd +"]");
 
-        console.log("[CommandService->processCommand()] - cmd=[" + cmd +"]");
-
-        switch (cmd) {
+      switch (cmd) {
           case "PLACE":
+            let stripLine = line.replace("PLACE","");
+            coords = this.getCoords(stripLine);
             this.robotService.place(coords);
             break;
           case "MOVE":
@@ -47,51 +56,32 @@ export class CommandService {
             break;
           default:
             console.log("Invalid Command");
-        }
       }
+    }
 
-    });
-    return this.output;
+    return[cmd, coords];
   }
 
-  parseLine(line) {
+  getCoords(line) {
 
-    line = line.toUpperCase();   // converts string to uppercase
-
-    console.log("[CommandService->parse] - line=["+ line + "]")
+    let tokens = line.split(",");
     
-    let tokens = line.split(" ");
-    let cmd = tokens[0];
-    let coords = null;
+    if (tokens.length != 3)
+      return;
 
-    console.log("[CommandService->parse] - tokens[0]=[" + cmd + "]")
+    let x = tokens[0].trim();
+    let y = tokens[1].trim();
+    let facing = tokens[2].trim();
 
-    if ( this.validCommand.includes(cmd) ) {
-
-      if (cmd.includes("PLACE")) {
-
-        if ( tokens.length < 2) {
-          return;
-        }
-        else {
-          let position = tokens[1].split(",");
-
-          let x = position[0];
-          let y = position[1];
-          let facing = position[2];
-
-          coords = new Map([
+    let coords = new Map([
             ['x', x],
             ['y', y],
             ['facing', facing]
           ]);
-        }
         
-      }
+    return coords;
       
-    }
-    
-    return [cmd, coords];
-  
   }
+    
+
 }

@@ -9,21 +9,21 @@ export class BoardService {
   private lowerLimit = 0;
 
   private directionMap = new Map ([
-    ['NORTH', {
-        'left': 'WEST',
-        'right': 'EAST'
+    ["NORTH", {
+        "LEFT": "WEST",
+        "RIGHT": "EAST"
     }],
-    ['SOUTH', {
-        'left': 'EAST',
-        'right': 'WEST'
+    ["SOUTH", {
+        "LEFT": "EAST",
+        "RIGHT": "WEST"
     }],
-    ['EAST', {
-        'left': 'NORTH',
-        'right': 'SOUTH'
+    ["EAST", {
+        "LEFT": "NORTH",
+        "RIGHT": "SOUTH"
     }],
-    ['WEST', {
-        'left': 'SOUTH',
-        'right': 'NORTH'
+    ["WEST", {
+        "LEFT": "SOUTH",
+        "RIGHT": "NORTH"
     }]
   ]);
 
