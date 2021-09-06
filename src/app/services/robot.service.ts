@@ -22,15 +22,10 @@ export class RobotService {
     this.directionMap = boardService.getDirectionMap();
   }
 
-  getPosition(x, y, facing) {
-    let coords = new Map([
-      ['x', x],
-      ['y', y],
-      ['facing', facing]
-    ]);
-
-    return coords;
-
+  setPosition(x, y, facing) {
+    this.currX = x;
+    this.currY = y;
+    this.currFacing = facing;
   }
 
   place(coords) {
@@ -55,7 +50,7 @@ export class RobotService {
   move() {
 
     console.log("Before move(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
-    
+
     switch (this.currFacing) {
       case "NORTH":
         if (this.currY < this.uppperLimit)
@@ -102,14 +97,11 @@ export class RobotService {
 
   report() {
 
-    if ( this.currX && this.currY && this.currFacing) {
+    if (this.currX && this.currY && this.currFacing) {
       let output = this.currX + ","  + this.currY + "," + this.currFacing;
       console.log("output: " + output);
-
       return output;
     }
-    return;
-
   }
 
   validRange(x:number){
