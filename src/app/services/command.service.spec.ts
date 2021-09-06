@@ -27,6 +27,7 @@ describe('CommandService', () => {
     [cmd, coords] = service.process(line);
 
     expect(cmd).toEqual("PLACE");
+    expect(robot.report()).toEqual("0,0,NORTH");
 
   });
 
@@ -39,6 +40,8 @@ describe('CommandService', () => {
     [cmd, coords] = service.process(line);
     
     expect(cmd).toEqual("PLACE");
+    expect(robot.report()).toEqual("0,0,NORTH");
+    
   });
 
   it('Test Invalid Command: placing 0,0,NORTH is an invalid command, ignore it', () => {
@@ -106,7 +109,7 @@ describe('CommandService', () => {
     expect(cmd).toEqual("LEFT");
   });
 
-  it('Test InValid Command: LEFTING is invalid command, ignore it', () => {
+  it('Test Invalid Command: LEFTING is invalid command, ignore it', () => {
 
     let cmd = null;
     let coords = new Map([
@@ -124,7 +127,7 @@ describe('CommandService', () => {
 
   });
 
-  it('Test InValid Command: RIGHTING is invalid command, ignore it', () => {
+  it('Test Invalid Command: RIGHTING is invalid command, ignore it', () => {
 
     let cmd = null;
     let coords = new Map([
@@ -142,7 +145,7 @@ describe('CommandService', () => {
 
   });
 
-  it('Test InValid Command: MOVINGis invalid command, ignore it', () => {
+  it('Test Invalid Command: MOVING is invalid command, ignore it', () => {
 
     let cmd = null;
     let coords = new Map([
