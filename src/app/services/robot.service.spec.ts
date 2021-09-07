@@ -15,36 +15,7 @@ describe('RobotService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Test Facing: SOUTH is a valid direction', () => {
-
-    expect(service.validFacing("SOUTH")).toBe(true);
-
-  });
   
-  it('Test Facing: NORTH is a valid direction', () => {
-
-    expect(service.validFacing("NORTH")).toBe(true);
-
-  })
-
-  it('Test Facing: EAST is a valid direction', () => {
-
-    expect(service.validFacing("EAST")).toBe(true);
-
-  })
-
-  it('Test Facing: WEST is a valid direction', () => {
-
-    expect(service.validFacing("WEST")).toBe(true);
-
-  })
-
-  it('Test Facing: XXX is an invalid direction', () => {
-
-    expect(service.validFacing("XXX")).toBe(false);
-
-  })
-
 
   it('Test Boundary: At (0,0,SOUTH), move should be remains at (0,0,SOUTH)', () => {
     service.setPosition(0,0,'SOUTH');
@@ -201,5 +172,32 @@ describe('RobotService', () => {
   
   });
 
+
+  it('Test Output: PLACE 0,0,NORTH->LEFT->REPORT is 0,0,WEST', () => {
+    service.setPosition(0, 0, 'NORTH');
+    service.left();
+
+    expect(service.report()).toEqual("0,0,WEST");
+  
+  });
+
+  it('Test Output: PLACE 0,0,NORTH->LEFT->REPORT is 0,0,WEST', () => {
+    service.setPosition(0, 0, 'NORTH');
+    service.left();
+
+    expect(service.report()).toEqual("0,0,WEST");
+  
+  });
+
+  it('Test Output: PLACE 1,2,EAST->MOVE->->MOVE->LEFT->MOVE->REPORT is 3,3,NORTH', () => {
+    service.setPosition(1, 2, 'EAST');
+    service.move();
+    service.move();
+    service.left();
+    service.move();
+
+    expect(service.report()).toEqual("3,3,NORTH");
+  
+  });
 
 });

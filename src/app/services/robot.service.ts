@@ -15,7 +15,6 @@ export class RobotService {
   private lowerLimit: number;
 
   private directionMap;
-  private validDirection = ["NORTH", "SOUTH", "EAST", "WEST"];
 
   constructor(private boardService: BoardService) {
     this.uppperLimit = boardService.getUpperLimit();
@@ -39,19 +38,10 @@ export class RobotService {
     
     this.resetPosition();
 
-    let x = coords.get('x');
-    let y = coords.get('y');
-    let facing = coords.get('facing');
-
-    console.log("x=[" + x + "]");
-    console.log("y=[" + y + "]");
-    console.log("facing=[" + facing + "]");
-
-    // check if coordinates are within the board and facing direction is correct
-    if (this.validRange(x) && this.validRange(y) && this.directionMap.get(facing)) {
-      this.currX = x;
-      this.currY = y;
-      this.currFacing = facing;
+    if (this.boardService.validCoords(coords)) {
+      this.currX = coords.get('x');
+      this.currY = coords.get('y');
+      this.currFacing = coords.get('facing');
     }
     
   }
@@ -90,7 +80,7 @@ export class RobotService {
   
     let facing = this.currFacing;
 
-    if (this.validFacing(facing))
+    if (this.boardService.validFacing(facing))
       this.currFacing = this.directionMap.get(facing).LEFT;
 
     console.log("After left(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
@@ -102,7 +92,7 @@ export class RobotService {
 
     let facing = this.currFacing;
 
-    if (this.validFacing(facing))
+    if (this.boardService.validFacing(facing))
       this.currFacing = this.directionMap.get(facing).RIGHT;
 
     console.log("After right(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
@@ -112,7 +102,9 @@ export class RobotService {
 
     console.log("Before: ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
 
-    if (this.validRange(this.currX) && this.validRange(this.currY) && this.validFacing(this.currFacing)) {
+    if (this.boardService.validRange(this.currX) && 
+        this.boardService.validRange(this.currY) && 
+        this.boardService.validFacing(this.currFacing)) {
       let output = this.currX + ","  + this.currY + "," + this.currFacing;
       console.log("output: " + output);
       return output;
@@ -120,20 +112,6 @@ export class RobotService {
     console.log("After: ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
 
-  validRange(num:number){
-
-    if (num >= this.lowerLimit && num <= this.uppperLimit)
-      return true;
-
-    return false;
-  }
-
-  validFacing(facing) {
-
-    if (this.validDirection.includes(facing))
-      return true;
-    
-    return false;
-  }
+  
 }
 
