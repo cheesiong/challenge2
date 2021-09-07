@@ -15,6 +15,37 @@ describe('RobotService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('Test Facing Direction: <whiltespace>SOUTH<whitespace> is a valid direction', () => {
+
+    expect(service.validFacing(" SOUTH ")).toBeTrue;
+
+  });
+  
+  it('Test Facing Direction: <whiltespace>NORTH<whitespace> is a valid direction', () => {
+
+    expect(service.validFacing(" NORTH ")).toBeTrue;
+
+  })
+
+  it('Test Facing Direction: <whiltespace>EAST<whitespace> is a valid direction', () => {
+
+    expect(service.validFacing(" EAST ")).toBeTrue;
+
+  })
+
+  it('Test Facing Direction: <whiltespace>WEST<whitespace> is a valid direction', () => {
+
+    expect(service.validFacing(" WEST ")).toBeTrue;
+
+  })
+
+  it('Test Facing Direction: XXX is an invalid direction', () => {
+
+    expect(service.validFacing("XXX")).toBeFalse;
+
+  })
+
+
   it('Test Boundary: At (0,0,SOUTH), move should be remains at (0,0,SOUTH)', () => {
     service.setPosition(0,0,'SOUTH');
     service.move();
