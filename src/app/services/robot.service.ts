@@ -15,6 +15,7 @@ export class RobotService {
   private lowerLimit: number;
 
   private directionMap;
+  private validDirection = ["NORTH", "SOUTH", "EAST", "WEST"];
 
   constructor(private boardService: BoardService) {
     this.uppperLimit = boardService.getUpperLimit();
@@ -88,7 +89,9 @@ export class RobotService {
     console.log("Before left(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   
     let facing = this.currFacing;
-    this.currFacing = this.directionMap.get(facing).LEFT;
+
+    if (this.validFacing(facing))
+      this.currFacing = this.directionMap.get(facing).LEFT;
 
     console.log("After left(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
@@ -98,7 +101,9 @@ export class RobotService {
     console.log("Before right(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
 
     let facing = this.currFacing;
-    this.currFacing = this.directionMap.get(facing).RIGHT;
+
+    if (this.validFacing(facing))
+      this.currFacing = this.directionMap.get(facing).RIGHT;
 
     console.log("After right(): ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
@@ -107,7 +112,7 @@ export class RobotService {
 
     console.log("Before: ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
 
-    if (this.validRange(this.currX) && this.validRange(this.currY) && this.currFacing) {
+    if (this.validRange(this.currX) && this.validRange(this.currY) && this.validFacing(this.currFacing)) {
       let output = this.currX + ","  + this.currY + "," + this.currFacing;
       console.log("output: " + output);
       return output;
@@ -120,6 +125,14 @@ export class RobotService {
     if (num >= this.lowerLimit && num <= this.uppperLimit)
       return true;
 
+    return false;
+  }
+
+  validFacing(facing) {
+
+    if (this.validDirection.includes(facing))
+      return true;
+    
     return false;
   }
 }

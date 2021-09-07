@@ -7,7 +7,7 @@ export class BoardService {
 
   private uppperLimit= 4;
   private lowerLimit = 0;
-
+  
   private directionMap = new Map ([
     ["NORTH", {
         "LEFT": "WEST",
