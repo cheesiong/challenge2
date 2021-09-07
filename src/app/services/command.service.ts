@@ -13,6 +13,9 @@ export class CommandService {
 
   processCommand(commandList) {
 
+    // resets the previous output
+    this.output = "";
+
     Object.keys(commandList.controls).forEach(key => {
 
       let line = commandList.controls[key].value;
