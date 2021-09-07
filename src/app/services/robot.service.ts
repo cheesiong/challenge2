@@ -28,8 +28,16 @@ export class RobotService {
     this.currFacing = facing;
   }
 
+  resetPosition() {
+    this.currX = null;
+    this.currY = null;
+    this.currFacing = null;
+  }
+
   place(coords) {
     
+    this.resetPosition();
+
     let x = coords.get('x');
     let y = coords.get('y');
     let facing = coords.get('facing');
@@ -97,18 +105,19 @@ export class RobotService {
 
   report() {
 
-    if (this.currX && this.currY && this.currFacing) {
+    console.log("Before: ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
+
+    if (this.validRange(this.currX) && this.validRange(this.currY) && this.currFacing) {
       let output = this.currX + ","  + this.currY + "," + this.currFacing;
       console.log("output: " + output);
       return output;
     }
+    console.log("After: ["+ this.currX + "," + this.currY + "," + this.currFacing + "]");
   }
 
-  validRange(x:number){
+  validRange(num:number){
 
-    console.log("validRange, x=["+ x + "]");
-
-    if (x >= this.lowerLimit && x <= this.uppperLimit)
+    if (num >= this.lowerLimit && num <= this.uppperLimit)
       return true;
 
     return false;

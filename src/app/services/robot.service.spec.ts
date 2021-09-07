@@ -15,6 +15,54 @@ describe('RobotService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('Test Boundary: At (0,0,SOUTH), move should be remains at (0,0,SOUTH)', () => {
+    service.setPosition(0,0,'SOUTH');
+    service.move();
+
+    expect(service.report()).toEqual("0,0,SOUTH");
+
+  });
+
+  it('Test Boundary: At (0,0,WEST), move should be remains at (0,0,WEST)', () => {
+    service.setPosition(0,0,'WEST');
+    service.move();
+
+    expect(service.report()).toEqual("0,0,WEST");
+
+  });
+
+  it('Test Boundary: At (0,4,NORTH), move should be remains at (0,4,NORTH)', () => {
+    service.setPosition(0,4,'NORTH');
+    service.move();
+
+    expect(service.report()).toEqual("0,4,NORTH");
+
+  });
+
+  it('Test Boundary: At (0,4,WEST), move should be remains at (0,4,WEST)', () => {
+    service.setPosition(0,4,'WEST');
+    service.move();
+
+    expect(service.report()).toEqual("0,4,WEST");
+
+  });
+
+  it('Test Boundary: At (4,0,SOUTH), move should be remains at (4,0,SOUTH)', () => {
+    service.setPosition(4,0,'SOUTH');
+    service.move();
+
+    expect(service.report()).toEqual("4,0,SOUTH");
+
+  });
+
+  it('Test Boundary: At (4,0,EAST), move should be remains at (4,0,EAST)', () => {
+    service.setPosition(4,0,'EAST');
+    service.move();
+
+    expect(service.report()).toEqual("4,0,EAST");
+
+  });
+
   it('Test Boundary: At (4,4,WEST), move should be remains at (3,4,WEST)', () => {
     service.setPosition(4,4,'WEST');
     service.move();
@@ -37,6 +85,47 @@ describe('RobotService', () => {
     service.move();
 
     expect(service.report()).toEqual("4,4,EAST");
+
+  });
+
+  it('Test Invalid Position: (5,5) is invalid', () => {
+    service.setPosition(5,5,'EAST');
+    
+    expect(service.report()).toBeNaN;
+  });
+
+  it('Test Invalid Position: (-1,-1) is invalid', () => {
+    service.setPosition(-1,-1,'EAST');
+    
+    expect(service.report()).toBeNaN;
+
+  });
+
+  it('Test Invalid Position: (5,0) is invalid', () => {
+    service.setPosition(5,0,'EAST');
+    
+    expect(service.report()).toBeNaN;
+
+  });
+
+  it('Test Invalid Position: (0,5) is invalid', () => {
+    service.setPosition(0,5,'EAST');
+    
+    expect(service.report()).toBeNaN;
+
+  });
+
+  it('Test Invalid Position: (0,-1) is invalid', () => {
+    service.setPosition(0,-1,'EAST');
+    
+    expect(service.report()).toBeNaN;
+
+  });
+
+  it('Test Invalid Position: (-1,0) is invalid', () => {
+    service.setPosition(-1,0,'EAST');
+    
+    expect(service.report()).toBeNaN;
 
   });
 

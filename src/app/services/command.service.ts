@@ -40,7 +40,8 @@ export class CommandService {
           case "PLACE":
             let stripLine = line.replace("PLACE","");
             coords = this.getCoords(stripLine);
-            this.robotService.place(coords);
+            if (coords)
+              this.robotService.place(coords);
             break;
           case "MOVE":
             this.robotService.move();
@@ -83,5 +84,4 @@ export class CommandService {
       
   }
     
-
 }
