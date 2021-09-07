@@ -15,33 +15,33 @@ describe('RobotService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Test Facing Direction: <whiltespace>SOUTH<whitespace> is a valid direction', () => {
+  it('Test Facing: SOUTH is a valid direction', () => {
 
-    expect(service.validFacing(" SOUTH ")).toBeTrue;
+    expect(service.validFacing("SOUTH")).toBe(true);
 
   });
   
-  it('Test Facing Direction: <whiltespace>NORTH<whitespace> is a valid direction', () => {
+  it('Test Facing: NORTH is a valid direction', () => {
 
-    expect(service.validFacing(" NORTH ")).toBeTrue;
-
-  })
-
-  it('Test Facing Direction: <whiltespace>EAST<whitespace> is a valid direction', () => {
-
-    expect(service.validFacing(" EAST ")).toBeTrue;
+    expect(service.validFacing("NORTH")).toBe(true);
 
   })
 
-  it('Test Facing Direction: <whiltespace>WEST<whitespace> is a valid direction', () => {
+  it('Test Facing: EAST is a valid direction', () => {
 
-    expect(service.validFacing(" WEST ")).toBeTrue;
+    expect(service.validFacing("EAST")).toBe(true);
 
   })
 
-  it('Test Facing Direction: XXX is an invalid direction', () => {
+  it('Test Facing: WEST is a valid direction', () => {
 
-    expect(service.validFacing("XXX")).toBeFalse;
+    expect(service.validFacing("WEST")).toBe(true);
+
+  })
+
+  it('Test Facing: XXX is an invalid direction', () => {
+
+    expect(service.validFacing("XXX")).toBe(false);
 
   })
 
@@ -116,47 +116,6 @@ describe('RobotService', () => {
     service.move();
 
     expect(service.report()).toEqual("4,4,EAST");
-
-  });
-
-  it('Test Invalid Position: (5,5) is invalid', () => {
-    service.setPosition(5,5,'EAST');
-    
-    expect(service.report()).toBeNaN;
-  });
-
-  it('Test Invalid Position: (-1,-1) is invalid', () => {
-    service.setPosition(-1,-1,'EAST');
-    
-    expect(service.report()).toBeNaN;
-
-  });
-
-  it('Test Invalid Position: (5,0) is invalid', () => {
-    service.setPosition(5,0,'EAST');
-    
-    expect(service.report()).toBeNaN;
-
-  });
-
-  it('Test Invalid Position: (0,5) is invalid', () => {
-    service.setPosition(0,5,'EAST');
-    
-    expect(service.report()).toBeNaN;
-
-  });
-
-  it('Test Invalid Position: (0,-1) is invalid', () => {
-    service.setPosition(0,-1,'EAST');
-    
-    expect(service.report()).toBeNaN;
-
-  });
-
-  it('Test Invalid Position: (-1,0) is invalid', () => {
-    service.setPosition(-1,0,'EAST');
-    
-    expect(service.report()).toBeNaN;
 
   });
 
